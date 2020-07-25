@@ -6,22 +6,12 @@ lalrpop_mod!(pub grammar);
 
 mod eval;
 mod ast;
+mod abstract_interpret;
 
 use std::env;
 use std::error::Error;
 use std::collections::HashMap;
-use simple_error::{SimpleResult,SimpleError,bail};
-
-pub fn eval(src: &str, env: &HashMap<String,i64>) -> SimpleResult<i64> {
-    let ctx = &mut ast::Context::default();
-    let node = try_with!(grammar::StartParser::new().parse(ctx, src), "parse error");
-    eval::eval(ctx, node, &mut |s| {
-        match env.get(s) {
-            Some(v) => Ok(*v),
-            None => Err(SimpleError::new("undefined variable"))
-        }
-    })
-}
+use simple_error::bail;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
@@ -32,7 +22,11 @@ fn main() -> Result<(), Box<dyn Error>> {
         "x".to_string() => 42,
         "y".to_string() => 10,
     };
-    let answer = eval(&args[1], &vars)?;
+
+    let ctx = &mut ast::Context::default();
+    let node = try_with!(grammar::StartParser::new().parse(ctx, &args[1]), "parse error");
+    let answer = eval::eval(ctx, node, &vars)?;
+    
     println!("vars: {:?}", vars);
     println!("{} = {}", &args[1], answer);
     Ok(())

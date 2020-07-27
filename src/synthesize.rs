@@ -4,7 +4,6 @@ use crate::ast::{self,NodeId};
 use simple_error::{SimpleResult,bail};
 use z3;
 use z3::ast::{Ast,Dynamic};
-use z3::Pattern;
 
 struct Synthesize<'a,'ctx> 
 where
@@ -32,10 +31,10 @@ impl<'a,'ctx> AbstractInterpret for Synthesize<'a,'ctx> {
     fn shr(&mut self, l: &Self::Output, r: &Self::Output) -> Self::Output { l.bvlshr(&r) }
     fn shl(&mut self, l: &Self::Output, r: &Self::Output) -> Self::Output { l.bvshl(&r) }
     fn neq(&mut self, l: &Self::Output, r: &Self::Output) -> Self::Output {
-        l._eq(r).not().ite(&self.constant(0), &self.constant(1))
+        l._eq(r).not().ite(&self.constant(1), &self.constant(0))
     }
     fn eq(&mut self, l: &Self::Output, r: &Self::Output) -> Self::Output {
-        l._eq(r).ite(&self.constant(0), &self.constant(1))
+        l._eq(r).ite(&self.constant(1), &self.constant(0))
     }
     fn neg(&mut self, l: &Self::Output) -> Self::Output { l.bvneg() }
     fn lookup(&mut self, var: &str) -> SimpleResult<Self::Output> {
@@ -96,11 +95,10 @@ pub fn synthesize<'a>(
                 |&v| Dynamic::from_ast(v)
             ).collect();
         let varref: Vec<&Dynamic> = varspec.iter().collect();
-        let pat = Pattern::new(z3_ctx, &varref[..]);
         z3::ast::forall_const(
             z3_ctx,
+            &varref[..],
             &[],
-            &[&pat],
             &templ_eq_spec.into())
             .as_bool()
             .unwrap()
@@ -114,7 +112,8 @@ pub fn synthesize<'a>(
         let mut answers = HashMap::new();
         for (hole, name) in holes {
             let val = model.eval(&hole).unwrap();
-            let ival = val.as_i64().unwrap();
+            // hack -- z3 won't return negative numbers with i64
+            let ival = val.as_u64().unwrap() as i64;
             answers.insert(name, ival);
         }
         Ok(answers)

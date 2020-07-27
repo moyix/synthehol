@@ -1,5 +1,5 @@
 [package]
-name = "minisynth"
+name = "synthehol"
 version = "0.1.0"
 authors = ["Brendan Dolan-Gavitt <brendandg@nyu.edu>"]
 edition = "2018"

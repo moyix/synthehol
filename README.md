@@ -1,5 +1,5 @@
-Minisynth-rs Clone
-------------------
+Synthehol: Minisynth-rs Clone
+=============================
 
 A rust implementation of [minisynth](https://www.cs.cornell.edu/~asampson/blog/minisynth.html), following Nick Fitzgerald's post [Program Synthesis is Possible in Rust](https://fitzgeraldnick.com/2018/11/15/program-synthesis-is-possible-in-rust.html). Indeed, you will find that it is nearly identical to his [minisynth-rs](https://github.com/fitzgen/minisynth-rs), with the following changes:
 

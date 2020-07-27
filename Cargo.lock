@@ -325,18 +325,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3728d817d99e5ac407411fa471ff9800a778d88a24685968b36824eaf4bee400"
 
 [[package]]
-name = "minisynth"
-version = "0.1.0"
-dependencies = [
- "id-arena",
- "lalrpop",
- "lalrpop-util",
- "regex",
- "simple-error",
- "z3",
-]
-
-[[package]]
 name = "new_debug_unreachable"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -510,6 +498,18 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-xid",
+]
+
+[[package]]
+name = "synthehol"
+version = "0.1.0"
+dependencies = [
+ "id-arena",
+ "lalrpop",
+ "lalrpop-util",
+ "regex",
+ "simple-error",
+ "z3",
 ]
 
 [[package]]

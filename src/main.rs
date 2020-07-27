@@ -15,7 +15,7 @@ use simple_error::bail;
 fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
-        bail!("usage: minisynth <spec> <template>");
+        bail!("usage: synthehol <spec> <template>");
     }
 
     let ast_ctx = &mut ast::Context::default();

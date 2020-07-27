@@ -38,6 +38,7 @@ impl AbstractInterpret for ConcreteEval<'_> {
     }
 }
 
+#[allow(dead_code)]
 pub fn eval(
     ctx: &mut ast::Context,
     node: ast::NodeId,

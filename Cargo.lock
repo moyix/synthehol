@@ -340,6 +340,7 @@ dependencies = [
  "maplit",
  "regex",
  "simple-error",
+ "z3",
 ]
 
 [[package]]
@@ -577,3 +578,20 @@ name = "winapi-x86_64-pc-windows-gnu"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
+
+[[package]]
+name = "z3"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f0354c65dfe00e08c4ab30581732906874f97156f424bfb390cf0cca2cb6ac29"
+dependencies = [
+ "lazy_static",
+ "log",
+ "z3-sys",
+]
+
+[[package]]
+name = "z3-sys"
+version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e1863cafae8eb86dd7d69c9218421b288594e8836346e93d4f36ade427195a21"

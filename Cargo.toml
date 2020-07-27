@@ -15,4 +15,4 @@ lalrpop = { version = "0.19.0", features = ["lexer"] }
 lalrpop-util = "0.19.0"
 regex = "1"
 simple-error = "0.2.1"
-maplit = "1.0.2"
+z3 = "0.6.0"
